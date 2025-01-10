@@ -70,15 +70,11 @@
         }  
         
         function delete(){
-            $platformDeleted = false; 
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
             $deleteQuery = "DELETE FROM Platform where id = " . $this->id;
 
-            if ($result = $mysqli->query($deleteQuery)) {
-                $platformDeleted = true;
-            }
-            return $platformDeleted; 
+            return $mysqli->query($deleteQuery); 
         }
 
         function getItem(){

@@ -31,7 +31,7 @@
         }
 
         function getAll() {
-            $mysqli = DBConnection::getInstance()->getConnection(); // Uso del Singleton
+            $mysqli = DBConnection::getInstance()->getConnection(); 
             $query = $mysqli->query('SELECT * FROM Language');  
             $listData = []; 
 
@@ -48,8 +48,8 @@
 
             $resultExistingLanguage = $mysqli->query("SELECT name FROM Language WHERE name = '$this->name'");
 
+            // Verificar que no existe un lenguaje con el mismo nombre
             if ($resultExistingLanguage->num_rows == 0) {
-                // No existe una plataforma con el mismo nombre, se puede crear
                 $insertQuery = "INSERT INTO Language (name, ISOCode) VALUES ('$this->name','$this->ISOCode')";
 
                 if ($resultInsert = $mysqli->query($insertQuery)) {
@@ -63,11 +63,10 @@
             $languageEdited = false; 
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
-            // TO DO: Comprobar que existe antes de editar
             $resultExistingLanguage = $mysqli->query("SELECT name FROM Language WHERE name = '$this->name' AND id != $this->id");
 
+            // Verificar que no existe una plataforma con el mismo nombre, se puede editar
             if ($resultExistingLanguage->num_rows == 0) {
-                // No existe una plataforma con el mismo nombre, se puede editar
                 $updateQuery = "UPDATE Language SET name = '" . $this->name . "', ISOCode = '" . $this->ISOCode . "' WHERE id = " . $this->id;
 
                 if ($resultUpdate = $mysqli->query($updateQuery)) {
@@ -78,20 +77,9 @@
         }  
         
         function delete(){
-            $languageDeleted = false; 
-            $mysqli = DBConnection::getInstance()->getConnection(); 
+            $deleteQuery = "DELETE FROM Language where id = " . $this->id;
 
-            //Comprueba que existe la plataforma antes de borrarla
-            $resultExistingLanguage = $mysqli->query('SELECT id FROM Language WHERE id = ' . $this->id);
-
-            if ($resultExistingLanguage->num_rows != 0) { 
-                $deleteQuery = "DELETE FROM Language where id = " . $this->id;
-
-                if ($result = $mysqli->query($deleteQuery)) {
-                    $languageDeleted = true;
-                }
-            }
-            return $languageDeleted; 
+            return  $mysqli->query($deleteQuery); 
         }
 
         function getItem(){

@@ -1,6 +1,6 @@
 <?php 
     require_once('../../controllers/DirectorController.php'); 
-      require_once('../../assets/scripts/alertSystem.php');
+    require_once('../../assets/scripts/alertSystem.php');
 ?>
 <!DOCTYPE html>
 <html>

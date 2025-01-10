@@ -55,7 +55,7 @@
                 $itemObject = new Director($item["id"], $item["name"], $item["surnames"],$item["birthdate"],  $item["nationality"]); 
                 array_push($listData, $itemObject); 
             }
-       
+
             return $listData; 
         }
 
@@ -63,10 +63,10 @@
             $directorCreated = false; 
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
-            $resultExistingDirector = $mysqli->query("SELECT name FROM Director WHERE name = '$this->name' AND surnames = '$this->surnames'");
+            $resultExistingDirector = $mysqli->query("SELECT name FROM Director WHERE name = '$this->name' AND surnames = '$this->surnames' AND birthdate = '$this->birthdate' AND nationality = '$this->nationality'");
 
+            // Verificar si existe un director con el mismo nombre, apellidos, fecha de nacimiento y naionalidad
             if ($resultExistingDirector->num_rows == 0) {
-                // No existe un director con el mismo nombre, se puede crear
                 $insertQuery = "INSERT INTO Director (name, surnames, birthdate, nationality) VALUES ('$this->name', '$this->surnames', '$this->birthdate', '$this->nationality')";
 
                 if ($resultInsert = $mysqli->query($insertQuery)) {
@@ -80,13 +80,12 @@
             $directorEdited = false; 
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
-            // TO DO: Comprobar que existe antes de editar
-            $resultExistingDirector = $mysqli->query("SELECT id FROM Director WHERE name = '$this->name' AND id != $this->id");
+            $resultExistingDirector = $mysqli->query("SELECT id FROM Director WHERE name = '$this->name' AND surnames = '$this->surnames' AND birthdate = '$this->birthdate' AND nationality = '$this->nationality' AND id != '$this->id'");
 
+            // Verificar si ya existe un director con el mismo nombre, apellidos, fecha de nacimiento, nacionalidad y diferente id
             if ($resultExistingDirector->num_rows == 0) {
-                // No existe una plataforma con el mismo nombre, se puede editar
                 $updateQuery = "UPDATE Director SET name = '$this->name', surnames = '$this->surnames', birthdate = '$this->birthdate', nationality = '$this->nationality' 
-                                WHERE id = $this->id";
+                                WHERE id = '$this->id'";
 
                 if ($resultUpdate = $mysqli->query($updateQuery)) {
                     $directorEdited = true;
@@ -96,21 +95,11 @@
         }  
         
         function delete(){
-            $directorDeleted = false; 
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
-            //Comprueba que existe la plataforma antes de borrarla
-            $resultExistingDirector = $mysqli->query('SELECT id FROM Director WHERE id = ' . $this->id);
+            $deleteQuery = "DELETE FROM Director where id = " . $this->id;
 
-            if ($resultExistingDirector->num_rows != 0) { 
-                $deleteQuery = "DELETE FROM Director where id = " . $this->id;
-
-                if ($result = $mysqli->query($deleteQuery)) {
-                    $directorDeleted = true;
-                }
-            }
-            $mysqli->close(); 
-            return $directorDeleted; 
+            return $mysqli->query($deleteQuery);
         }
 
         function getItem(){

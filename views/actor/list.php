@@ -5,22 +5,23 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <script src="../../assets/scripts/shared.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <title>Gestión de Actores</title>
-</head>
-<header>
-    <a href="../../index.html">
-        <img src="/images/house-solid.svg" alt="home" style="margin:20px; width: 40px; height: 40px;">
-    </a>
-</header>
+    <head>
+        <title>Gestión de Actores</title>
+        <meta charset="UTF-8">
+        <script src="../../assets/scripts/shared.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    </head>
 <body>
+    <header>
+        <a href="../../index.html">
+            <img src="/images/house-solid.svg" alt="home" style="margin:20px; width: 40px; height: 40px;">
+        </a>
+    </header>
     <div class="container">
         <h1>Gestión de Actores</h1>
         <div class="text-start mb-4 mt-4">
-            <a href="createEdit.php?action=create" class="btn-primary px-4 py-2">+ Crear Actor</a>
+            <a href="createEdit.php?action=create" class="btn btn-primary px-4 py-2">+ Crear Actor</a>
         </div>
 
         <?php 
@@ -52,7 +53,7 @@
                             Borrar
                         </button>
                         <?php 
-                             AlertSystem::showDeleteConfirmationModal(
+                            AlertSystem::showDeleteConfirmationModal(
                                 $actor->getId(), 
                                 'Eliminar Actor', 
                                 '¿Estás seguro de eliminar al actor?'
@@ -73,6 +74,5 @@
             window.location.href = 'delete.php?actorId=' + actorId;
         }
     </script>
-    </title>
 </body>
 </html>

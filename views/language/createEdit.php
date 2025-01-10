@@ -43,6 +43,10 @@
                             }
                             else {
                                 $languageEdited =  updateLanguage($_POST['itemId'], $_POST['itemName'], $_POST['itemISOCode']); 
+                                if (!$languageEdited) {
+                                    AlertSystem::showError("El lenguaje ya existe.". 
+                                    $errorMessage, $incorrectFields, 'list.php', 'Volver atrás');
+                                }
                             }               
                         }                        
                     }
@@ -66,6 +70,10 @@
                             }
                             else {
                                 $languageCreated = storeLanguage($_POST['itemName'], $_POST['itemISOCode']);
+                                if (!$languageCreated) {
+                                    AlertSystem::showError("El lenguaje ya existe.". 
+                                    $errorMessage, $incorrectFields, 'list.php', 'Volver atrás');
+                                }
                             }               
                         }                        
                     }
@@ -113,12 +121,12 @@
                } else {
                     if ($action === 'create') {
                         if ($languageCreated) {
-                             AlertSystem::showSucces('Idioma creado correctamente.', 'list.php', 'Volver al listado de plataformas');
+                             AlertSystem::showSuccess('Idioma creado correctamente.', 'list.php', 'Volver al listado de plataformas');
                         } 
                     }
                     if ($action === 'edit') {
                         if ($languageEdited) {
-                             AlertSystem::showSucces('Idioma editado correctamente.', 'list.php', 'Volver al listado de plataformas');
+                             AlertSystem::showSuccess('Idioma editado correctamente.', 'list.php', 'Volver al listado de plataformas');
                         } 
                     }
                 }

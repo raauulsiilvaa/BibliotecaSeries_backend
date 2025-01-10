@@ -17,14 +17,14 @@
                 $isAssociated = $actor->isActorAssociatedToSeries();
                 
                 if ($isAssociated) {
-                     AlertSystem::showError('No se puede eliminar el actor porque está asociado a una serie.', ' Debe eliminar primero la serie.', 'list.php', 'Volver a intentarlo');
+                    AlertSystem::showError('No se puede eliminar el actor porque está asociado a una serie.', ' Debe eliminar primero la serie.', 'list.php', 'Volver a intentarlo');
                 } else {
                     $actorDeleted = deleteActor($idActor);
                 }
                 if ($actorDeleted) {
-                     AlertSystem::showSuccess('Actor eliminado correctamente.', 'list.php', 'Volver al listado de actors');
+                    AlertSystem::showSuccess('Actor eliminado correctamente.', 'list.php', 'Volver al listado de actors');
                 } else {
-                     AlertSystem::showError('La actor no se ha eliminado correctamente.', 'list.php', 'Volver a intentarlo');
+                    AlertSystem::showError('La actor no se ha eliminado correctamente.', 'list.php', 'Volver a intentarlo');
                 }
             ?>
 

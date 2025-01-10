@@ -63,10 +63,10 @@
             $actorCreated = false; 
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
-            $resultExistingActor = $mysqli->query("SELECT name FROM Actor WHERE name = '$this->name' AND surnames = '$this->surnames'");
+            $resultExistingActor = $mysqli->query("SELECT name FROM Actor WHERE name = '$this->name' AND surnames = '$this->surnames' AND birthdate = '$this->birthdate' AND nationality = '$this->nationality'");
 
+            // Verificar si existe un actor con ese nombre, apellido, fecha de nacimiento y nacionalidad
             if ($resultExistingActor->num_rows == 0) {
-                // No existe un Actor con el mismo nombre, se puede crear
                 $insertQuery = "INSERT INTO Actor (name, surnames, birthdate, nationality) VALUES ('$this->name', '$this->surnames', '$this->birthdate', '$this->nationality')";
 
                 if ($resultInsert = $mysqli->query($insertQuery)) {
@@ -80,15 +80,14 @@
             $actorEdited = false; 
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
-            // TO DO: Comprobar que existe antes de editar
-            $resultExistingActor = $mysqli->query("SELECT id FROM Actor WHERE name = '$this->name' AND id != $this->id");
-
+            $resultExistingActor = $mysqli->query("SELECT id FROM Actor WHERE name = '$this->name' AND surnames = '$this->surnames' AND birthdate = '$this->birthdate' AND nationality = '$this->nationality' AND id != '$this->id'");
+            // Verificar si existe un actor con ese nombre, apellido, fecha de nacimiento, nacionalidad y diferente id
             if ($resultExistingActor->num_rows == 0) {
-                // No existe una plataforma con el mismo nombre, se puede editar
                 $updateQuery = "UPDATE Actor SET name = '$this->name', surnames = '$this->surnames', birthdate = '$this->birthdate', nationality = '$this->nationality' 
-                                WHERE id = $this->id";
+                                WHERE id = '$this->id'";
 
                 if ($resultUpdate = $mysqli->query($updateQuery)) {
+                    echo "RESULT UPDATE: " . $resultUpdate;
                     $actorEdited = true;
                 }
             }
@@ -97,20 +96,11 @@
         }  
         
         function delete(){
-            $actorDeleted = false; 
-            $mysqli = DBConnection::getInstance()->getConnection(); 
+            $mysqli = DBConnection::getInstance()->getConnection();
 
-            //Comprueba que existe la plataforma antes de borrarla
-            $resultExistingActor = $mysqli->query('SELECT id FROM Actor WHERE id = ' . $this->id);
+            $deleteQuery = "DELETE FROM Actor where id = " . $this->id;
 
-            if ($resultExistingActor->num_rows != 0) { 
-                $deleteQuery = "DELETE FROM Actor where id = " . $this->id;
-
-                if ($result = $mysqli->query($deleteQuery)) {
-                    $actorDeleted = true;
-                }
-            }
-            return $actorDeleted; 
+            return $mysqli->query($deleteQuery); 
         }
 
         function getItem(){

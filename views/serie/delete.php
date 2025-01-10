@@ -10,21 +10,18 @@
     <head>
         <script src="../../assets/scripts/shared.js"></script>
     </head>
-    <style>
     <body>
         <?php 
-                $idSeries = $_GET['seriesId']; 
-                $seriesDeleted = deleteSeries($idSeries);
+            $idSeries = $_GET['seriesId']; 
+            $seriesDeleted = deleteSeries($idSeries);
 
-                if ($seriesDeleted) {
-                    AlertSystem::showSuccess('Serie eliminada correctamente.', 'list.php', 'Volver al listado de series');
-                } else {
-                    AlertSystem::showError('La serie no se ha eliminado correctamente.', 'list.php', 'Volver a intentarlo');
-                }
+            if ($seriesDeleted) {
+                AlertSystem::showSuccess('Serie eliminada correctamente.', 'list.php', 'Volver al listado de series');
+            } else {
+                AlertSystem::showError('La serie no se ha eliminado correctamente.', 'list.php', 'Volver a intentarlo');
+            }
 
-            ?>
-
-        </div>
+        ?>
     </body>
 </html>
 

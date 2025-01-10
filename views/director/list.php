@@ -9,12 +9,12 @@
     <script src="../../assets/scripts/shared.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
-<header>
-    <a href="../../index.html">
-        <img src="/images/house-solid.svg" alt="home" style="margin:20px; width: 40px; height: 40px;">
-    </a>
-</header>
 <body>
+    <header>
+        <a href="../../index.html">
+            <img src="/images/house-solid.svg" alt="home" style="margin:20px; width: 40px; height: 40px;">
+        </a>
+    </header>
     <div class="container">
         <div class="row">
             <h1>Listado de directores</h1>

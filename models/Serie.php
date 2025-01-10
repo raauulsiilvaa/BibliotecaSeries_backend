@@ -120,20 +120,11 @@
         }  
         
         function delete(){
-            $SerieDeleted = false; 
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
-            //Comprueba que existe la serie antes de borrarla
-            $resultExistingSerie = $mysqli->query('SELECT id FROM Serie WHERE id = ' . $this->id);
+            $deleteQuery = "DELETE FROM Serie where id = " . $this->id;
 
-            if ($resultExistingSerie->num_rows != 0) { 
-                $deleteQuery = "DELETE FROM Serie where id = " . $this->id;
-
-                if ($result = $mysqli->query($deleteQuery)) {
-                    $SerieDeleted = true;
-                }
-            }
-            return $SerieDeleted; 
+            return $mysqli->query($deleteQuery);
         }
 
         function getItem(){

@@ -19,13 +19,13 @@ class DBConnection {
             die('Error de conexión: ' . $this->conn->connect_error);
         }
     }
+    
     public function __destruct() {
         if ($this->conn) {
             $this->conn->close();
         }
     }
 
-    // Método para obtener la instancia única de la conexión
     public static function getInstance() {
         if (!self::$instance) {
             self::$instance = new self();
@@ -33,7 +33,6 @@ class DBConnection {
         return self::$instance;
     }
 
-    // Método para obtener la conexión a la base de datos
     public function getConnection() {
         return $this->conn;
     }

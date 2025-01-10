@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="../../assets/scripts/shared.js"></script> 
         <script src="../../assets/scripts/validations.js"></script> 
 
@@ -19,9 +18,9 @@
     <body>
         <div class="container">
             <?php
-                 $sendData = false; 
-                 $action = isset($_GET['action']) ? $_GET['action'] : 'create';
-                 $fieldsToValidate = ['itemName', 'itemSurnames', 'itemBirthdate', 'itemNationality'];
+                $sendData = false; 
+                $action = isset($_GET['action']) ? $_GET['action'] : 'create';
+                $fieldsToValidate = ['itemName', 'itemSurnames', 'itemBirthdate', 'itemNationality'];
 
                 //Editar director
                 if ($action === 'edit') {
@@ -46,6 +45,10 @@
                             }
                             else {
                                 $directorEdited = updateDirector($idDirector, $_POST['itemName'], $_POST['itemSurnames'], $_POST['itemBirthdate'], $_POST['itemNationality']);
+                                if (!$directorEdited) {
+                                    AlertSystem::showError("El director ya existe.". 
+                                    $errorMessage, $incorrectFields, 'list.php', 'Volver atrás');
+                                }
                             }               
                         }                        
                     }
@@ -70,6 +73,10 @@
                             }
                             else {
                                 $directorCreated = storeDirector($_POST['itemName'], $_POST['itemSurnames'], $_POST['itemBirthdate'], $_POST['itemNationality']); 
+                                if (!$directorCreated) {
+                                    AlertSystem::showError("El director ya existe.". 
+                                    $errorMessage, $incorrectFields, 'list.php', 'Volver atrás');
+                                }
                             }               
                         }                        
                     }
@@ -133,12 +140,12 @@
                } else {
                     if ($action === 'create') {
                         if ($directorCreated) {
-                            AlertSystem::showSucces('Director creado correctamente.', 'list.php', 'Volver al listado de directors');
+                            AlertSystem::showSuccess('Director creado correctamente.', 'list.php', 'Volver al listado de directors');
                         }
                     }
                     if ($action === 'edit') {
                         if ($directorEdited) {
-                            AlertSystem::showSucces('Director editado correctamente.', 'list.php', 'Volver al listado de directors');
+                            AlertSystem::showSuccess('Director editado correctamente.', 'list.php', 'Volver al listado de directors');
                         }
                     }
                 }
